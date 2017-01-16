@@ -17,7 +17,7 @@ func main() {
 
 	// bindusername := os.Getenv("READONLY_USERNAME")
 	// bindpassword := os.Getenv("READONLY_PASSWORD")
-	ldapUrl := "ldap://xnmh.nhs.uk" //
+	ldapUrl := os.Getenv("LDAP_URL") // "ldap://xnmh.nhs.uk:80" //
 	// ldapPort := 80 // ldapUrl := fmt.Sprintf("%s:%s", ldapUrl, ldapPort)
 	// baseDN := "dc=example,dc=com"
 	// objectClass := "organizationalUnit" // organizationalPerson
@@ -26,6 +26,7 @@ func main() {
 	log.Println("username: ", username)
 	log.Println("password: ", password)
 	log.Println("userdn: ", userDN)
+	log.Println("ldapUrl: ", ldapUrl)
 	// log.Println("bindusername: ", bindusername)
 	// log.Println("bindpassword: ", bindpassword)
 
