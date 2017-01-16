@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "crypto/tls"
+	"crypto/tls"
 	// "fmt"
 	"gopkg.in/ldap.v2"
 	"log"
@@ -37,11 +37,11 @@ func main() {
 	}
 	defer l.Close()
 
-	// // Reconnect with TLS
-	// err = l.StartTLS(&tls.Config{InsecureSkipVerify: true})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	// Reconnect with TLS
+	err = l.StartTLS(&tls.Config{InsecureSkipVerify: true})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Bind as the user to verify their password
 	err = l.Bind(userDN, password)
