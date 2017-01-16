@@ -32,6 +32,7 @@ func main() {
 
 	l, err := ldap.Dial("tcp", ldapUrl)
 	if err != nil {
+		log.Println("Connection Error")
 		log.Fatal(err)
 	}
 	defer l.Close()
@@ -45,6 +46,7 @@ func main() {
 	// Bind as the user to verify their password
 	err = l.Bind(userDN, password)
 	if err != nil {
+		log.Println("Authentication Error")
 		log.Fatal(err)
 	} else {
 		log.Println("Successfully authenticated")
