@@ -14,19 +14,19 @@ func main() {
 	username := os.Getenv("USERNAME")
 	password := os.Getenv("PASSWORD")
 
-	bindusername := os.Getenv("READONLY_USERNAME")
-	bindpassword := os.Getenv("READONLY_PASSWORD")
-	ldapUrl := "ldap://xnmh.nhs.uk"
-	ldapPort := 80
+	// bindusername := os.Getenv("READONLY_USERNAME")
+	// bindpassword := os.Getenv("READONLY_PASSWORD")
+	ldapUrl := "ldap://xnmh.nhs.uk" //
+	// ldapPort := 80 // ldapUrl := fmt.Sprintf("%s:%s", ldapUrl, ldapPort)
 	// baseDN := "dc=example,dc=com"
 	objectClass := "organizationalUnit" // organizationalPerson
 	baseDN := "dc=xnmh,dc=nhs,dc=uk"
 	log.Println("username: ", username)
 	log.Println("password: ", password)
-	log.Println("bindusername: ", bindusername)
-	log.Println("bindpassword: ", bindpassword)
+	// log.Println("bindusername: ", bindusername)
+	// log.Println("bindpassword: ", bindpassword)
 
-	l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", ldapUrl, ldapPort))
+	l, err := ldap.Dial("tcp", ldapUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,6 +68,8 @@ func main() {
 	err = l.Bind(userdn, password)
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		log.Println("Successfully authenticated")
 	}
 
 	// // Rebind as the read only user for any futher queries
