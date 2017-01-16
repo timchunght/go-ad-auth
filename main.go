@@ -19,8 +19,9 @@ func main() {
 	ldapUrl := "ldap://xnmh.nhs.uk" //
 	// ldapPort := 80 // ldapUrl := fmt.Sprintf("%s:%s", ldapUrl, ldapPort)
 	// baseDN := "dc=example,dc=com"
-	objectClass := "organizationalUnit" // organizationalPerson
-	baseDN := "dc=xnmh,dc=nhs,dc=uk"
+	// objectClass := "organizationalUnit" // organizationalPerson
+	// baseDN := "dc=xnmh,dc=nhs,dc=uk"
+	userDN := fmt.Sprintf("cn=%s,dc=xnmh,dc=nhs,dc=uk", username)
 	log.Println("username: ", username)
 	log.Println("password: ", password)
 	// log.Println("bindusername: ", bindusername)
@@ -38,34 +39,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// // First bind with a read only user
-	// err = l.Bind(bindusername, bindpassword)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// Search for the given username
-	searchRequest := ldap.NewSearchRequest(
-		baseDN,
-		ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 0, false,
-		fmt.Sprintf("(&(objectClass=%s)&(uid=%s))", objectClass, username),
-		[]string{"dn"},
-		nil,
-	)
-
-	sr, err := l.Search(searchRequest)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if len(sr.Entries) != 1 {
-		log.Fatal("User does not exist or too many entries returned")
-	}
-
-	userdn := sr.Entries[0].DN
-
 	// Bind as the user to verify their password
-	err = l.Bind(userdn, password)
+	err = l.Bind(userDN, password)
 	if err != nil {
 		log.Fatal(err)
 	} else {
