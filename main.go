@@ -2,7 +2,7 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
+	// "fmt"
 	"gopkg.in/ldap.v2"
 	"log"
 	"os"
@@ -13,6 +13,7 @@ func main() {
 	// The username and password we want to check
 	username := os.Getenv("USERNAME")
 	password := os.Getenv("PASSWORD")
+	userDN := os.Getenv("USERDN")
 
 	// bindusername := os.Getenv("READONLY_USERNAME")
 	// bindpassword := os.Getenv("READONLY_PASSWORD")
@@ -21,9 +22,10 @@ func main() {
 	// baseDN := "dc=example,dc=com"
 	// objectClass := "organizationalUnit" // organizationalPerson
 	// baseDN := "dc=xnmh,dc=nhs,dc=uk"
-	userDN := fmt.Sprintf("cn=%s,dc=xnmh,dc=nhs,dc=uk", username)
+	// userDN := fmt.Sprintf("%s@xnmh.nhs.uk", username)
 	log.Println("username: ", username)
 	log.Println("password: ", password)
+	log.Println("userdn: ", userDN)
 	// log.Println("bindusername: ", bindusername)
 	// log.Println("bindpassword: ", bindpassword)
 
