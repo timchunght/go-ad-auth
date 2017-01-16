@@ -16,13 +16,17 @@ func main() {
 
 	bindusername := os.Getenv("READONLY_USERNAME")
 	bindpassword := os.Getenv("READONLY_PASSWORD")
-
+	ldapUrl := "ldap://xnmh.nhs.uk"
+	ldapPort := 80
+	// baseDN := "dc=example,dc=com"
+	objectClass := "organizationalUnit" // organizationalPerson
+	baseDN := "dc=xnmh,dc=nhs,dc=uk"
 	log.Println("username: ", username)
 	log.Println("password: ", password)
 	log.Println("bindusername: ", bindusername)
 	log.Println("bindpassword: ", bindpassword)
 
-	l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", "ldap.example.com", 389))
+	l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", ldapUrl, ldapPort))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,9 +46,9 @@ func main() {
 
 	// Search for the given username
 	searchRequest := ldap.NewSearchRequest(
-		"dc=example,dc=com",
+		baseDN,
 		ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 0, false,
-		fmt.Sprintf("(&(objectClass=organizationalPerson)&(uid=%s))", username),
+		fmt.Sprintf("(&(objectClass=%s)&(uid=%s))", objectClass, username),
 		[]string{"dn"},
 		nil,
 	)
