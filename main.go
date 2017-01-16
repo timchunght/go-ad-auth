@@ -34,11 +34,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// First bind with a read only user
-	err = l.Bind(bindusername, bindpassword)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// // First bind with a read only user
+	// err = l.Bind(bindusername, bindpassword)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// Search for the given username
 	searchRequest := ldap.NewSearchRequest(
@@ -66,9 +66,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Rebind as the read only user for any futher queries
-	err = l.Bind(bindusername, bindpassword)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// // Rebind as the read only user for any futher queries
+	// err = l.Bind(bindusername, bindpassword)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 }
